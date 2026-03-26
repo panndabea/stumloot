@@ -8,89 +8,201 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="noise" aria-hidden="true"></div>
-  <div class="scanlines" aria-hidden="true"></div>
-
   <main class="page">
     <section class="hero" id="top">
-      <p class="stamp">[ STUMLOOT DETECTED ]</p>
       <h1>stumloot<span class="cursor" aria-hidden="true"></span></h1>
       <p class="subtitle">a system that passes validation but fails reality</p>
-      <p class="knife">Everything looks fine.</p>
-      <p class="knife" id="typed-line">Everything is green. Nothing works.</p>
+      <p class="knife">Everything is green.</p>
       <p class="knife">Nothing works.</p>
-
-      <div class="status-row" role="status" aria-live="polite">
-        <span class="status-label">[ SYSTEM: HEALTHY ]</span>
-        <span id="status-rotator">DNS resolves. Users don’t.</span>
-      </div>
+      <p class="knife">You will lose 40 minutes to this.</p>
+      <p class="rotating" aria-live="polite"><span class="label">status:</span> <span id="status-rotator">DNS resolves. Users don’t.</span></p>
     </section>
 
     <section class="definition" id="definition">
-      <p class="section-tag">dictionary-ish</p>
-      <p class="term" id="definition-text">stumloot (n.)<br>something that is technically correct and completely useless</p>
-      <button id="copy-definition" type="button">copy definition</button>
-      <p id="copy-state" aria-live="polite"></p>
+      <p>stumloot (n.)<br />something that is technically correct and completely useless</p>
+    </section>
+
+    <section class="dialogues" id="in-the-wild">
+      <h2>in the wild</h2>
+
+      <article class="dialogue docker fade-in" data-fade>
+        <p class="meta">[02:11:04] terminal / docker</p>
+        <pre>
+$ docker ps
+“Container running?”
+“Yes.”
+
+“Port exposed?”
+“Yes.”
+
+“Service listening?”
+“Yes.”
+
+“You can curl it?”
+“…no.”
+
+“…so it’s there.”
+“Yeah.”
+
+“And does nothing.”
+“…yeah.”
+
+“stumloot.”
+        </pre>
+      </article>
+
+      <article class="dialogue cloudflare fade-in" data-fade>
+        <p class="meta">[02:18:33] edge chat / cloudflare</p>
+        <div class="bubble left">“Tunnel connected?”</div>
+        <div class="bubble right">“Yes.”</div>
+        <div class="bubble left">“DNS pointing to it?”</div>
+        <div class="bubble right">“Yes.”</div>
+        <div class="bubble left">“Hostname correct?”</div>
+        <div class="bubble right">“Yes.”</div>
+        <div class="bubble left">“Requests hitting origin?”</div>
+        <div class="bubble right">“No.”</div>
+        <div class="bubble left">“Zero?”</div>
+        <div class="bubble right">“Zero.”</div>
+        <div class="bubble left">“…so the edge is fine.”</div>
+        <div class="bubble right">“Yeah.”</div>
+        <div class="bubble left">“And the path just disappears.”</div>
+        <div class="bubble right">“…yeah.”</div>
+        <div class="bubble left final">“stumloot.”</div>
+      </article>
+
+      <article class="dialogue grafana fade-in" data-fade>
+        <p class="meta">[02:24:09] panel sync / grafana</p>
+        <div class="panel-row"><span>dashboard.green</span><span>true</span></div>
+        <div class="panel-row"><span>metrics.reporting</span><span>true</span></div>
+        <div class="panel-row"><span>latency.p95</span><span>normal</span></div>
+        <div class="panel-row"><span>errors.total</span><span>0</span></div>
+        <div class="panel-row"><span>users.failing</span><span>true</span></div>
+        <hr />
+        <p>“Dashboard green?”</p>
+        <p>“Yes.”</p>
+        <p>“All metrics reporting?”</p>
+        <p>“Yes.”</p>
+        <p>“Latency normal?”</p>
+        <p>“Yes.”</p>
+        <p>“Errors?”</p>
+        <p>“No.”</p>
+        <p>“Users still failing?”</p>
+        <p>“Yes.”</p>
+        <p>“…so everything looks fine.”</p>
+        <p>“Yep.”</p>
+        <p>“And it isn’t.”</p>
+        <p>“…yeah.”</p>
+        <p class="final">“stumloot.”</p>
+      </article>
+
+      <article class="dialogue kubernetes fade-in" data-fade>
+        <p class="meta">[02:31:52] kubectl / cluster-a</p>
+        <pre>
+> kubectl get pods
+“Pods ready?”
+“Yes.”
+
+> kubectl get svc
+“Service exists?”
+“Yes.”
+
+> kubectl get endpoints
+“Endpoints attached?”
+“Yes.”
+
+> kubectl get ingress
+“Ingress configured?”
+“Yes.”
+
+“Traffic reaching pods?”
+“No.”
+
+“…so everything is wired.”
+“Yeah.”
+
+“And nothing flows.”
+“…yeah.”
+
+“stumloot.”
+        </pre>
+      </article>
+
+      <article class="dialogue terraform fade-in" data-fade>
+        <p class="meta">[02:39:10] terraform apply output</p>
+        <pre>
+Terraform v1.8.2
+Apply complete! Resources: 9 added, 0 changed, 0 destroyed.
+
+“Apply succeeded?”
+“Yes.”
+
+“No errors?”
+“No.”
+
+“Resources created?”
+“Yes.”
+
+“Everything in state?”
+“Yes.”
+
+“System works?”
+“No.”
+
+“…so infra is correct.”
+“On paper.”
+
+“And useless in practice.”
+“…yeah.”
+
+“stumloot.”
+        </pre>
+      </article>
+
+      <article class="dialogue unresolved fade-in" data-fade>
+        <p class="meta">[02:44:02] unresolved</p>
+        <p>“Everything is there.”</p>
+        <p>“Yes.”</p>
+        <p>“And still nothing works?”</p>
+        <p>“Yes.”</p>
+        <p>“…”</p>
+        <small>stumloot</small>
+      </article>
+
+      <article class="dialogue unresolved fade-in" data-fade>
+        <p class="meta">[02:47:55] unresolved</p>
+        <p>“Checks pass?”</p>
+        <p>“Yes.”</p>
+        <p>“Users succeed?”</p>
+        <p>“No.”</p>
+        <p>“…”</p>
+        <small>stumloot</small>
+      </article>
     </section>
 
     <section class="rfc" id="rfc">
-      <p class="section-tag">excerpt / RFC-SL-0001 (partial)</p>
       <pre>
-&gt; A stumloot condition exists when perceived system health diverges from actual user outcome.
-
-Implementations MUST validate end-to-end behavior, not only process health.
-Operators SHOULD distrust a dashboard that has never seen a real request.
-
-This is not broken. That’s the problem.
+RFC-SL-0001 (mini)
+A stumloot condition exists when perceived system health diverges from actual user outcome.
+Implementations MUST check user-visible outcomes, not only service/process health.
+Operators SHOULD treat all-green dashboards as untrusted until real flows pass.
       </pre>
-    </section>
-
-    <section class="examples" id="examples">
-      <p class="section-tag">field notes</p>
-
-      <article class="note note-a">
-        <h2>Cloudflare Tunnel / wrong origin hostname</h2>
-        <p>Tunnel says connected. Edge is happy. Origin points to old host. No traffic lands where it should.</p>
-        <p class="flag">The tunnel is connected. The system is not.</p>
-      </article>
-
-      <article class="note note-b">
-        <h2>TLS fullchain missing intermediate</h2>
-        <p>Certificate is valid and not expired. Browser still rejects trust path. Support tickets arrive first, alerts arrive never.</p>
-      </article>
-
-      <article class="note note-c">
-        <h2>Kubernetes Service selector mismatch</h2>
-        <p>Pods exist. Service exists. Selector misses by one label. Traffic goes to nowhere with perfect confidence.</p>
-        <p class="flag">You will lose 40 minutes to this.</p>
-      </article>
     </section>
 
     <section class="incident" id="incident">
-      <p class="section-tag">incident snippet</p>
       <pre>
-Incident: Edge routing failure
-Status: All systems nominal
+Incident: edge routing failure
+Status: all systems nominal
 User impact: total failure
-
 Root cause: stumloot TLS + origin mismatch
 Detection delay: 47 minutes
-Reason: dashboards only checked process health
-
 Resolution: fixed chain + routing
-Lesson: stop trusting green dashboards
-[ OUTCOME: NULL ]
       </pre>
     </section>
 
-    <section class="usage" id="usage">
-      <p class="section-tag">minimal use</p>
-      <ul>
-        <li>put “stumloot” in PR titles when it’s healthy-looking nonsense</li>
-        <li>tag postmortems when green dashboards hid user failure</li>
-        <li>if it passes checks and still fails humans: call it</li>
-      </ul>
-    </section>
+    <footer>
+      <p>Not an official standard. Yet.</p>
+      <p>Apparently healthy. Functionally useless.</p>
+    </footer>
   </main>
 
   <script src="script.js"></script>

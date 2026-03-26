@@ -1,20 +1,19 @@
 # stumloot
 
-**stumloot** = a system that passes validation and fails reality.
+a system that passes validation but fails reality.
 
-Started as a joke term during on-call. Stayed because it’s weirdly useful.
-
-## what this is
-
-A single-page GitHub Pages site with terminal/brutalist energy.
-It names a very specific pain: everything is green, users still lose.
+This repository contains a single static GitHub Pages artifact built around realistic debugging dialogues:
+- hero + short definition
+- dialogue-heavy "in the wild" section
+- mini RFC block
+- short incident snippet
 
 ## deploy on GitHub Pages
 
-1. Push this repo.
+1. Push this repository.
 2. Open **Settings → Pages**.
 3. Under **Build and deployment**, choose **Deploy from a branch**.
-4. Pick your branch (usually `main`) and `/ (root)`.
+4. Select your branch (usually `main`) and `/ (root)`.
 5. Save.
 
-Done. It’s static HTML/CSS/JS.
+No build step required: plain `index.html`, `styles.css`, and `script.js`.
