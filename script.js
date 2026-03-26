@@ -1,115 +1,82 @@
-/* =========================================================
-   stumloot — script.js
-   Smooth scroll · Copy-to-clipboard · Rotating ticker
-   ========================================================= */
-
 (function () {
-  'use strict';
+  "use strict";
 
-  /* ----------------------------------------------------------
-     Smooth scroll for anchor links and CTA buttons
-  ---------------------------------------------------------- */
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var target = document.querySelector(this.getAttribute('href'));
-      if (!target) return;
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
+  var typedLine = document.getElementById("typed-line");
+  var fullLine = "Everything is green. Nothing works.";
 
-  /* ----------------------------------------------------------
-     Copy-to-clipboard for the formal definition
-  ---------------------------------------------------------- */
-  var copyBtn = document.getElementById('copy-def-btn');
-  var defText = document.getElementById('formal-def-text');
-
-  if (copyBtn && defText) {
-    copyBtn.addEventListener('click', function () {
-      var text = defText.textContent.trim();
-      navigator.clipboard.writeText(text).then(function () {
-        copyBtn.textContent = '✓ Copied';
-        copyBtn.classList.add('copied');
-
-        /* Flash the definition highlight */
-        var highlight = document.getElementById('def-highlight');
-        if (highlight) {
-          highlight.classList.add('flash');
-          setTimeout(function () { highlight.classList.remove('flash'); }, 800);
-        }
-
-        setTimeout(function () {
-          copyBtn.textContent = 'Copy definition';
-          copyBtn.classList.remove('copied');
-        }, 2200);
-      }).catch(function () {
-        /* Fallback for browsers without clipboard API */
-        var ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.focus();
-        ta.select();
-        try { document.execCommand('copy'); } catch (_) {}
-        document.body.removeChild(ta);
-        copyBtn.textContent = '✓ Copied';
-        copyBtn.classList.add('copied');
-        setTimeout(function () {
-          copyBtn.textContent = 'Copy definition';
-          copyBtn.classList.remove('copied');
-        }, 2200);
-      });
-    });
+  if (typedLine) {
+    typedLine.textContent = "";
+    var index = 0;
+    var timer = setInterval(function () {
+      typedLine.textContent += fullLine.charAt(index);
+      index += 1;
+      if (index >= fullLine.length) {
+        clearInterval(timer);
+      }
+    }, 38);
   }
 
-  /* ----------------------------------------------------------
-     Rotating status ticker
-  ---------------------------------------------------------- */
-  var phrases = [
-    'Tunnel connected. Outcome: stumloot.',
-    'Cert valid. Trust path broken.',
-    'DNS resolves. Users don\'t.',
-    'Green dashboard. Dead user path.',
-    'Pods ready. Requests: nowhere.',
-    'Health check: passing. Service: absent.',
-    'Deployment successful. Traffic: theoretical.',
-    'All systems nominal. Functionality: optional.',
-    'Ingress configured. Routing: hypothetical.',
-    'TLS handshake complete. Response: void.',
-    'Service mesh operational. Outcome: stumloot.',
-    'Config valid. Reality: unmoved.',
+  var statuses = [
+    "DNS resolves. Users don’t.",
+    "Cert valid. Trust broken.",
+    "Tunnel up. Traffic missing."
   ];
 
-  var tickerEl = document.getElementById('ticker-text');
-  if (tickerEl) {
-    var idx = 0;
-    tickerEl.textContent = phrases[idx];
-
+  var statusEl = document.getElementById("status-rotator");
+  if (statusEl) {
+    var statusIndex = 0;
     setInterval(function () {
-      tickerEl.style.opacity = '0';
-      tickerEl.style.transition = 'opacity 0.3s';
-
-      setTimeout(function () {
-        idx = (idx + 1) % phrases.length;
-        tickerEl.textContent = phrases[idx];
-        tickerEl.style.opacity = '1';
-      }, 320);
-    }, 3400);
+      statusIndex = (statusIndex + 1) % statuses.length;
+      statusEl.textContent = statuses[statusIndex];
+    }, 2400);
   }
 
-  /* ----------------------------------------------------------
-     Highlight "stumloot" text on page load (subtle pulse on hero word)
-  ---------------------------------------------------------- */
-  var heroWord = document.querySelector('.hero-word');
-  if (heroWord) {
-    heroWord.style.transition = 'filter 0.6s';
-    setTimeout(function () {
-      heroWord.style.filter = 'brightness(1.25)';
+  var copyBtn = document.getElementById("copy-definition");
+  var definitionEl = document.getElementById("definition-text");
+  var copyState = document.getElementById("copy-state");
+
+  function setCopyState(msg) {
+    if (copyState) {
+      copyState.textContent = msg;
       setTimeout(function () {
-        heroWord.style.filter = 'brightness(1)';
-      }, 800);
-    }, 600);
+        copyState.textContent = "";
+      }, 1500);
+    }
   }
 
+  function fallbackCopy(text) {
+    var area = document.createElement("textarea");
+    area.value = text;
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.focus();
+    area.select();
+    try {
+      document.execCommand("copy");
+      setCopyState("copied.");
+    } catch (_) {
+      setCopyState("copy failed.");
+    }
+    document.body.removeChild(area);
+  }
+
+  if (copyBtn && definitionEl) {
+    copyBtn.addEventListener("click", function () {
+      var text = definitionEl.textContent.replace(/\s+/g, " ").trim();
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard
+          .writeText(text)
+          .then(function () {
+            setCopyState("copied.");
+          })
+          .catch(function () {
+            fallbackCopy(text);
+          });
+      } else {
+        fallbackCopy(text);
+      }
+    });
+  }
 })();
